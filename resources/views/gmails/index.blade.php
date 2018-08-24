@@ -545,28 +545,43 @@
         $('#mail-info').bind('input propertychange', function(e) {
             var values = e.target.value.split('\n');
             var names = values[0].split(' ');
-            var addr;
+            var addr, country;
 
-            if(values.length == 5 && values[4] != '') {
-                $('input[name="address2"]').val(values[2]);
-                addr = values[3];
-                country = values[4];
-            } else {
-                $('input[name="address2"]').val('');
+            $('input[name="first_name"]').val(names[1].trim());
+            $('input[name="last_name"]').val(names[0].trim());
+            $('input[name="address1"]').val(values[1].trim());
+
+            if(values.length == 4) {
+                $('input[name="address2"]').val();
                 addr = values[2];
                 country = values[3];
             }
-            $('input[name="first_name"]').val(names[1]);
-            $('input[name="last_name"]').val(names[0]);
-            $('input[name="address1"]').val(values[1]);
+
+            if(values.length == 5) {
+                if(isNaN(values[3])) {
+                    $('input[name="address2"]').val(values[2]);
+                    addr = values[3];
+                    country = values[4];
+                } else {
+                    $('input[name="address2"]').val();
+                    addr = values[2] + " " + values[3];
+                    country = values[4];
+                }
+            }
+
+            if(values.length == 6) {
+                $('input[name="address2"]').val(values[2]);
+                addr = values[3] + values[4];
+                country = values[5];
+            }
+
             var parts = addr.split(',');
             $('input[name="city"]').val(parts[0]);
             var i_parts = parts[1].trim().split(' ');
-            $('input[name="province_code"]').val(i_parts[0]);
-            console.log(states[i_parts[0]]);
+            $('input[name="province_code"]').val(i_parts[0].trim());
             $('input[name="province"]').val(states[i_parts[0]]);
-            $('input[name="zipcode"]').val(i_parts[1]);
-            $('input[name="country"]').val(country);
+            $('input[name="zipcode"]').val(i_parts[1].trim());
+            $('input[name="country"]').val(country.trim());
             $('input[name="country_code"]').val(countries[country]);
         });
 
