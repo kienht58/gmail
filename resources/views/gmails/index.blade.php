@@ -59,7 +59,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <form class="form-horizontal" role="form" id="gmail-form">
-                                <input type="hidden" class="form-control" name="email" value="">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Email</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="email" value="">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">First name</label>
                                     <div class="col-md-10">
@@ -148,6 +153,7 @@
 
     <script src="/vendor/ubold/assets/plugins/moment/moment.js"></script>
     <script src="/vendor/ubold/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.19/pagination/select.js"></script>
 @endsection
 
 @section('inline_scripts')
@@ -472,6 +478,7 @@
                 searching: false,
                 serverSide: true,
                 processing: true,
+                sPaginationType: "listbox",
                 ajax: {
                     url: '{!! route('gmails.datatables') !!}'
                 },
@@ -527,7 +534,6 @@
             var country = $(this).data('country');
             var zipcode = $(this).data('zipcode');
             var link = $(this).data('link');
-            $('#mail-title').text('Cập nhật thông tin mail ' + mail);
             $('#mail-link').attr('href', link);
             $('input[name="email"]').val(mail);
             $('input[name="first_name"]').val(first_name);
