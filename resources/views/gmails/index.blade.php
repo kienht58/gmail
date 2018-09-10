@@ -479,7 +479,6 @@
                 serverSide: true,
                 processing: true,
                 sPaginationType: "listbox",
-                bStateSave: true,
                 ajax: {
                     url: '{!! route('gmails.datatables') !!}'
                 },
@@ -594,13 +593,12 @@
 
         $('#submit-button').on('click', function(e) {
             var form = $('#gmail-form');
-            console.log(form.serialize())
             $.ajax({
                 type: "POST",
                 url: '/' + id + '/update',
                 data: form.serialize(),
                 success: function(data) {
-                    datatable.row(id).draw()
+                    datatable.row(id).draw(false)
                     $('#myModal').modal('hide');
                 },
                 error: function(e) {
