@@ -479,6 +479,7 @@
                 serverSide: true,
                 processing: true,
                 sPaginationType: "listbox",
+                bStateSave: true,
                 ajax: {
                     url: '{!! route('gmails.datatables') !!}'
                 },
